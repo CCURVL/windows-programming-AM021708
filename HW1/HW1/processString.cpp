@@ -16,10 +16,45 @@ using namespace std;
 //       -1 if exception occur (ex. string containing non-digit character)
 int getAscendingStr(string& inputStr)
 {
-	
-	/// Please fill your code here
+	stringstream ss(inputStr);
+	string subStr;
+	vector<string> vA;
 
+	for (int i = 0; i < inputStr.length(); i++)
+	{
+		if (!(isdigit(inputStr[i]) || inputStr[i] == ' ' || inputStr[i] == '-'))
+			return -1;
+	}
 
+	while (getline(ss, subStr, ' '))
+		vA.push_back(subStr);
+
+	string temp;
+
+	for (int pass = 0; pass < vA.size(); pass++)
+	{
+		for (int i = 0; i < vA.size() - 1; i++)
+		{
+			if (atoi(vA[i].c_str()) > atoi(vA[i + 1].c_str()))
+			{
+				temp = vA[i];
+				vA[i] = vA[i + 1];
+				vA[i + 1] = temp;
+			}
+		}
+	}
+
+	string ans = "";
+	for (int i = 0; i < vA.size(); i++)
+	{
+		ans = ans + vA[i];
+		if (i != vA.size() - 1)
+		{
+			ans = ans + " ";
+		}
+	}
+
+	inputStr = ans;
 	return 0;
 }
 
@@ -36,7 +71,22 @@ int getAscendingStr(string& inputStr)
 //          (return vector size should be 0)
 int solveQ(vector<double> &x, double a, double b, double c)
 {
+	if ((b*b - 4 * a*c)>0)//判別式大於0 
+	{
+		x.push_back((-b + sqrt(pow(b, 2) - 4 * a*c)) / (2 * a));
+		x.push_back((-b - sqrt(pow(b, 2) - 4 * a*c)) / (2 * a));
+		return 1;
+	}//相異實根部分 
+	else if ((pow(b, 2) - 4 * a*c) == 0)//判別式等於0 
+	{
+		x.push_back((-b) / (2 * a));
+		return 0;
+	}//相等實根部分 
+	else
+	{
 
+		return -1;
+	}//虛根部分 
 	return 0;
 }
 
