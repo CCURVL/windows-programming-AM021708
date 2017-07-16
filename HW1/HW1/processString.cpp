@@ -18,43 +18,25 @@ int getAscendingStr(string& inputStr)
 {
 	stringstream ss(inputStr);
 	string subStr;
-	vector<string> vA;
-
-	for (int i = 0; i < inputStr.length(); i++)
-	{
-		if (!(isdigit(inputStr[i]) || inputStr[i] == ' ' || inputStr[i] == '-'))
+	for (int i = 0; i < inputStr.length(); i++) {
+		if (!(isdigit(inputStr[i]) || inputStr[i] == '-' || inputStr[i] == ' '))
 			return -1;
 	}
 
-	while (getline(ss, subStr, ' '))
-		vA.push_back(subStr);
+	vector<int> vAi;
+	vector<string> vAs;
+	while (getline(ss, subStr, ' ')) {
+		vAs.push_back(subStr);
+	}
+	for (int i = 0; i < vAs.size(); i++) {
+		vAi.push_back(atoi(vAs[i].c_str()));
+	}
+	sort(vAi.begin(), vAi.end());
 
-	string temp;
-
-	for (int pass = 0; pass < vA.size(); pass++)
-	{
-		for (int i = 0; i < vA.size() - 1; i++)
-		{
-			if (atoi(vA[i].c_str()) > atoi(vA[i + 1].c_str()))
-			{
-				temp = vA[i];
-				vA[i] = vA[i + 1];
-				vA[i + 1] = temp;
-			}
-		}
+	for (int i = 0; i<vAs.size(); i++) {
+		printf("%d ", vAi[i]);
 	}
 
-	string ans = "";
-	for (int i = 0; i < vA.size(); i++)
-	{
-		ans = ans + vA[i];
-		if (i != vA.size() - 1)
-		{
-			ans = ans + " ";
-		}
-	}
-
-	inputStr = ans;
 	return 0;
 }
 
